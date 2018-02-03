@@ -1,8 +1,10 @@
 const highlight = require('highlight.js');
+const defaults = {selector: 'code'};
 
 module.exports = function(options) {
   highlight.configure(options);
-  let selector = options.selector || 'code';
+  let normalizedOptions = Object.assign({}, defaults, options);
+  let {selector} = normalizedOptions;
 
   return function highlightContent(root, data, metalsmith, done) {
     Array.from(root.querySelectorAll(selector)).forEach(node => {
